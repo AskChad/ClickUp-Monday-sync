@@ -31,7 +31,6 @@ export class MondayAPI {
         'API-Version': '2024-01',
         'Content-Type': 'application/json',
       },
-      timeout: 30000,
     });
 
     // Monday rate limit: 5M complexity points per minute
