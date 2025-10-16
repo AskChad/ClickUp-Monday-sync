@@ -307,7 +307,7 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
         file_size: 0,
         status: 'failed',
         error_message: errorMessage,
-      });
+      } as any);
     } catch (error) {
       console.error('Failed to log task failure:', error);
     }
@@ -355,7 +355,7 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
         status,
         error_message: errorMessage,
         transferred_at: status === 'transferred' ? new Date().toISOString() : null,
-      });
+      } as any);
     } catch (error) {
       console.error('Failed to track file transfer:', error);
     }

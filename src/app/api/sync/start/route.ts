@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
           clickupLinkField,
         },
         started_at: new Date().toISOString(),
-      })
+      } as any)
       .select()
       .single();
 

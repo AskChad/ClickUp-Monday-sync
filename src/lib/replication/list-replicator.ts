@@ -164,7 +164,7 @@ export class ListReplicator {
           monday_column_name: column.title,
           monday_column_type: column.type,
           mapping_status: 'auto',
-        });
+        } as any);
 
         mappings.push(mapping);
         console.log(`✓ Mapped field: ${field.name} → ${column.title} (${column.type})`);
@@ -249,7 +249,7 @@ export class ListReplicator {
       task_data: fullTask,
       sync_status: 'synced',
       last_synced_at: new Date().toISOString(),
-    });
+    } as any);
 
     // Handle description as an update/comment
     if (fullTask.description && options.includeComments) {
@@ -319,7 +319,7 @@ export class ListReplicator {
       task_data: subtask,
       sync_status: 'synced',
       last_synced_at: new Date().toISOString(),
-    });
+    } as any);
   }
 
   /**
@@ -362,7 +362,7 @@ export class ListReplicator {
           file_size: attachment.size,
           status: 'transferred',
           transferred_at: new Date().toISOString(),
-        });
+        } as any);
 
         console.log(`    ✓ Transferred: ${attachment.title}`);
       } catch (error: any) {
@@ -376,7 +376,7 @@ export class ListReplicator {
           file_size: attachment.size,
           status: 'failed',
           error_message: error.message,
-        });
+        } as any);
       }
     }
   }

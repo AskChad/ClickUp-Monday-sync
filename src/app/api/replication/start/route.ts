@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
           preserveAssignees,
           preserveDates,
         },
-      })
+      } as any)
       .select()
       .single();
 

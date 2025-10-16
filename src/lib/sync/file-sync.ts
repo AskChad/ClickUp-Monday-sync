@@ -250,7 +250,7 @@ export class FileSyncEngine {
       file_size: attachment.size,
       status,
       transferred_at: status === 'transferred' ? new Date().toISOString() : null,
-    });
+    } as any);
   }
 
   /**

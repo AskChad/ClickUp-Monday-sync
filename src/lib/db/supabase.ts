@@ -142,7 +142,7 @@ export const logActivity = async (
       job_id: jobId || null,
       action,
       details,
-    });
+    } as any);
 
   if (error) {
     console.error('Failed to log activity:', error);
