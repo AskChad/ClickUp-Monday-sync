@@ -73,7 +73,7 @@ export const saveCredentials = async (
 ) => {
   const db = getServiceSupabase();
 
-  const { data, error } = await db
+  const { data, error } = (await db
     .from('api_credentials')
     .upsert({
       user_id: userId,
@@ -83,11 +83,11 @@ export const saveCredentials = async (
       expires_at: credentials.expiresAt || null,
       workspace_id: credentials.workspaceId || null,
       updated_at: new Date().toISOString(),
-    }, {
+    } as any, {
       onConflict: 'user_id,service'
     })
     .select()
-    .single();
+    .single()) as { data: any; error: any };
 
   if (error) {
     throw new Error(`Failed to save credentials: ${error.message}`);
@@ -102,12 +102,12 @@ export const getCredentials = async (
 ) => {
   const db = getServiceSupabase();
 
-  const { data, error } = await db
+  const { data, error } = (await db
     .from('api_credentials')
     .select('*')
     .eq('user_id', userId)
     .eq('service', service)
-    .single();
+    .single()) as { data: any; error: any };
 
   if (error) {
     if (error.code === 'PGRST116') {
