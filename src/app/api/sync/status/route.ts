@@ -13,21 +13,21 @@ export async function GET(request: NextRequest) {
     const db = getServiceSupabase();
 
     // Get job status
-    const { data: job, error: jobError } = await db
+    const { data: job, error: jobError } = (await db
       .from('sync_jobs')
       .select('*')
       .eq('id', jobId)
-      .single();
+      .single()) as { data: any; error: any };
 
     if (jobError || !job) {
       return NextResponse.json({ error: 'Job not found' }, { status: 404 });
     }
 
     // Get file transfer stats
-    const { data: files } = await db
+    const { data: files } = (await db
       .from('file_transfers')
       .select('status')
-      .eq('job_id', jobId);
+      .eq('job_id', jobId)) as { data: any[] | null };
 
     const fileStats = {
       total: files?.length || 0,
