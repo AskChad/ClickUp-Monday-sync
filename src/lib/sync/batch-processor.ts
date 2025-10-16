@@ -272,11 +272,11 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
   private async logError(message: string, error: any): Promise<void> {
     try {
       const db = getServiceSupabase();
-      const { data: job } = await db
+      const { data: job } = (await db
         .from('sync_jobs')
         .select('error_log')
         .eq('id', this.jobId)
-        .single();
+        .single()) as { data: any };
 
       const errorLog = job?.error_log || [];
       errorLog.push({
@@ -319,13 +319,13 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
   async checkDuplicates(fileName: string, mondayItemId: string): Promise<boolean> {
     try {
       const db = getServiceSupabase();
-      const { data } = await db
+      const { data } = (await db
         .from('file_transfers')
         .select('id')
         .eq('monday_item_id', mondayItemId)
         .eq('file_name', fileName)
         .eq('status', 'transferred')
-        .single();
+        .single()) as { data: any };
 
       return !!data;
     } catch {
@@ -367,11 +367,11 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
   async getJobStatus() {
     try {
       const db = getServiceSupabase();
-      const { data } = await db
+      const { data } = (await db
         .from('sync_jobs')
         .select('*')
         .eq('id', this.jobId)
-        .single();
+        .single()) as { data: any };
 
       return data;
     } catch (error) {
