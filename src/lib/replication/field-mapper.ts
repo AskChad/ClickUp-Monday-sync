@@ -311,6 +311,7 @@ export class FieldMapper {
       'email': (v) => v && typeof v.email === 'string',
       'phone': (v) => v && typeof v.phone === 'string',
       'link': (v) => v && typeof v.url === 'string',
+      'file': () => true, // Files are uploaded separately, not validated here
       'tags': (v) => v && Array.isArray(v.tag_ids),
       'rating': (v) => v && typeof v.rating === 'number',
       'location': (v) => v && typeof v.address === 'string',
