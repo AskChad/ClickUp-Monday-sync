@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     // Create sync job
     const db = getServiceSupabase();
-    const { data: job, error: jobError } = await db
+    const { data: job, error: jobError } = (await db
       .from('sync_jobs')
       .insert({
         user_id: userId,
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
         started_at: new Date().toISOString(),
       } as any)
       .select()
-      .single();
+      .single()) as { data: any; error: any };
 
     if (jobError || !job) {
       throw new Error('Failed to create sync job');

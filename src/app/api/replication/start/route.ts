@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Create replication record
     const db = getServiceSupabase();
-    const { data: replication, error: repError } = await db
+    const { data: replication, error: repError } = (await db
       .from('list_replications')
       .insert({
         user_id: userId,
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         },
       } as any)
       .select()
-      .single();
+      .single()) as { data: any; error: any };
 
     if (repError || !replication) {
       throw new Error('Failed to create replication record');
