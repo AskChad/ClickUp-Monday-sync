@@ -1,7 +1,7 @@
 import { ClickUpAPI } from '@/lib/api/clickup';
 import { MondayAPI } from '@/lib/api/monday';
 import { getServiceSupabase } from '@/lib/db/supabase';
-import { FieldMapper } from './field-mapper';
+import { FieldMapper, mapDescriptionToUpdate } from './field-mapper';
 import { BatchProcessor, BatchTask } from '@/lib/sync/batch-processor';
 import type { ClickUpTask, ClickUpCustomField, ClickUpAttachment, ClickUpComment } from '@/types/clickup';
 import type { MondayBoard, MondayItem, FieldMapping } from '@/types/monday';
@@ -253,7 +253,7 @@ export class ListReplicator {
 
     // Handle description as an update/comment
     if (fullTask.description && options.includeComments) {
-      const descriptionText = FieldMapper.mapDescriptionToUpdate(fullTask.description);
+      const descriptionText = mapDescriptionToUpdate(fullTask.description);
       if (descriptionText) {
         await this.monday.createUpdate(parseInt(item.id), descriptionText);
       }
