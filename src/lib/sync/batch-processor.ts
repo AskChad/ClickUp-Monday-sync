@@ -253,14 +253,14 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
   private async updateProgress(processed: number, total: number): Promise<void> {
     try {
       const db = getServiceSupabase();
-      await db
+      await (db
         .from('sync_jobs')
         .update({
           processed_tasks: processed,
           total_tasks: total,
           status: processed >= total ? 'completed' : 'running',
-        })
-        .eq('id', this.jobId);
+        } as any)
+        .eq('id', this.jobId) as any);
     } catch (error) {
       console.error('Failed to update progress:', error);
     }
@@ -285,10 +285,10 @@ export class BatchProcessor<T extends BatchTask = BatchTask> {
         error: error instanceof Error ? error.message : String(error),
       });
 
-      await db
+      await (db
         .from('sync_jobs')
-        .update({ error_log: errorLog })
-        .eq('id', this.jobId);
+        .update({ error_log: errorLog } as any)
+        .eq('id', this.jobId) as any);
     } catch (logError) {
       console.error('Failed to log error:', logError);
     }

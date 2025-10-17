@@ -259,15 +259,15 @@ export class FileSyncEngine {
   private async updateProgress(totalTasks: number, processedTasks: number): Promise<void> {
     const db = getServiceSupabase();
 
-    await db
+    await (db
       .from('sync_jobs')
       .update({
         total_tasks: totalTasks,
         processed_tasks: processedTasks,
         status: processedTasks < totalTasks ? 'running' : 'completed',
         completed_at: processedTasks >= totalTasks ? new Date().toISOString() : null,
-      })
-      .eq('id', this.jobId);
+      } as any)
+      .eq('id', this.jobId) as any);
   }
 
   /**

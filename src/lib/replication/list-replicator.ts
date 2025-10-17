@@ -421,10 +421,10 @@ export class ListReplicator {
       updates.started_at = new Date().toISOString();
     }
 
-    await db
+    await (db
       .from('list_replications')
       .update(updates as any)
-      .eq('id', this.replicationId);
+      .eq('id', this.replicationId) as any);
   }
 
   /**
@@ -432,10 +432,10 @@ export class ListReplicator {
    */
   private async updateReplication(data: any): Promise<void> {
     const db = getServiceSupabase();
-    await db
+    await (db
       .from('list_replications')
       .update(data as any)
-      .eq('id', this.replicationId);
+      .eq('id', this.replicationId) as any);
   }
 
   /**
@@ -444,12 +444,12 @@ export class ListReplicator {
   private async updateProgress(processed: number, total: number): Promise<void> {
     const db = getServiceSupabase();
 
-    await db
+    await (db
       .from('list_replications')
       .update({
         migrated_tasks: processed,
         total_tasks: total,
       } as any)
-      .eq('id', this.replicationId);
+      .eq('id', this.replicationId) as any);
   }
 }
