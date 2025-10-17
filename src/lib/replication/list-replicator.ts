@@ -414,8 +414,12 @@ export class ListReplicator {
       status,
       ...(completedAt && { completed_at: completedAt }),
       ...(errorMessage && { error_message: errorMessage }),
-      ...(status === 'migrating' && !updates.started_at && { started_at: new Date().toISOString() }),
     };
+
+    // Add started_at if transitioning to migrating status
+    if (status === 'migrating') {
+      updates.started_at = new Date().toISOString();
+    }
 
     await db
       .from('list_replications')
