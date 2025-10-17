@@ -423,7 +423,7 @@ export class ListReplicator {
 
     await db
       .from('list_replications')
-      .update(updates)
+      .update(updates as any)
       .eq('id', this.replicationId);
   }
 
@@ -434,7 +434,7 @@ export class ListReplicator {
     const db = getServiceSupabase();
     await db
       .from('list_replications')
-      .update(data)
+      .update(data as any)
       .eq('id', this.replicationId);
   }
 
@@ -449,7 +449,7 @@ export class ListReplicator {
       .update({
         migrated_tasks: processed,
         total_tasks: total,
-      })
+      } as any)
       .eq('id', this.replicationId);
   }
 }
