@@ -9,7 +9,9 @@
     "lint": "next lint",
     "db:migrate": "supabase migration up",
     "db:reset": "supabase db reset",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test:deployment": "node scripts/test-deployment.js",
+    "test:setup": "node scripts/add-test-accounts.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
